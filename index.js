@@ -108,7 +108,7 @@ function onResults(results) {
   poseMarks = results.poseLandmarks;
   leftArmPoint = poseMarks[11];
   rightArmPoint = poseMarks[12];
-  console.log(leftArmPoint, rightArmPoint);
+  // console.log(leftArmPoint, rightArmPoint);
   leftArmBone.position.set(leftArmPoint.x * 100, leftArmPoint.y * 100, 0);
   rightArmBone.position.set(rightArmPoint.x * 100, rightArmPoint.y * 100, 0);
 }
@@ -186,14 +186,13 @@ function addFloor(scene) {
   scene.add(floor);
 }
 function addSphere(scene) {
-  let geometry = new THREE.SphereGeometry(8, 32, 32);
+  let geometry = new THREE.SphereGeometry(1, 32, 32);
   let material = new THREE.MeshBasicMaterial({ color: 0x9bffaf }); // 0xf2ce2e
   let sphere = new THREE.Mesh(geometry, material);
-  sphere.position.z = 3;
-  sphere.position.y = 3;
-  sphere.position.x = 3;
+  sphere.position.z = 2;
+  sphere.position.y = 0;
+  sphere.position.x = 0;
   scene.add(sphere);
-  console.log(sphere);
 }
 
 init();
@@ -261,10 +260,22 @@ loader.load(
     scene.add(model);
     let count = 0;
     model.traverse((o) => {
-      if (o.isBone && o.name === "rp_nathan_animated_003_walking_upperarm_r")
+      if (o.isBone && o.name === "rp_nathan_animated_003_walking_upperarm_r") {
         rightArmBone = o;
-      if (o.isBone && o.name === "rp_nathan_animated_003_walking_upperarm_l")
+        // console.log(rightArmBone.position);
+        rightArmBone.position.x = 40;
+        rightArmBone.position.z = 40;
+        rightArmBone.position.y = 0;
+        // console.log(rightArmBone.position);
+      }
+      if (o.isBone && o.name === "rp_nathan_animated_003_walking_upperarm_l") {
         leftArmBone = o;
+        // console.log(leftArmBone.position);
+        leftArmBone.position.x = 0;
+        leftArmBone.position.y = 0;
+        leftArmBone.position.z = 0;
+        console.log("left bone exi");
+      }
       // if ( isBone) {
       //   console.log(o.name);
       // }
